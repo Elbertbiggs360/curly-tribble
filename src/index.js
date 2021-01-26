@@ -148,26 +148,64 @@ function calculateWinner(squares) {
 
 // =======================================
 
+const Test4 = (props) => {
+  const handleClick2 = () => {
+    alert(props.a + props.b)
+  }
+
+  // Method 3
+  const handleClick3 = (a, b) => {
+    alert(a+b);
+  }
+  // method 2. Pass values as props
+  return (
+    <h2>
+      <button onClick={handleClick2}>Pass values by props</button>
+      <button onClick={() => handleClick3(props.a, props.b)}>Rerender function as arrow func</button>
+    </h2>
+  );
+}
+
+const Test3 = (props) => {
+  function handleClick(a, b) {
+    alert(a+b);
+  }
+  let a = 5;
+  let b = 5;
+
+  // method 1. Bind the function to current context (this) with values being passed down
+  // https://stackoverflow.com/questions/29810914/react-js-onclick-cant-pass-value-to-method
+  return (
+    <h2>
+      { props.heading }
+      <button onClick={handleClick.bind(this, a, b)} />
+      <Test4
+        a={a}
+        b={b}
+      />
+    </h2>
+  );
+}
+
+function Test2() {
+  return <div>
+          <h1>Hello world 2</h1>
+          <Test3 heading = {"Hello World " + 3} />
+        </div>;
+}
 class Test extends Component{
   render(){
     const element = (
-      <div>Hello, World!</div>
+      <div>
+        <span>Hello, World!</span>
+        <Test2 />
+      </div>
     );
     return element;
   }
 }
 
-function Test2() {
-  return <div>Hello world 2</div>;
-}
-
 ReactDOM.render(
   <Test />,
   document.getElementById('secondary')
-);
-
-
-ReactDOM.render(
-  <Test2 />,
-  document.getElementById('third')
 );

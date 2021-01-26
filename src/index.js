@@ -1,4 +1,5 @@
-import React from 'react';
+import { render } from '@testing-library/react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
@@ -58,7 +59,7 @@ class Game extends React.Component {
     this.setState({
       stepNumber: step,
       xIsNext: (step % 2) === 0,
-    })
+    });
   }
 
   handleClick(i) {
@@ -86,6 +87,7 @@ class Game extends React.Component {
     if (winner) {
       status = 'Winner: ' + winner
     } else {
+      console.log(this.state.xIsNext);
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
 
@@ -143,3 +145,29 @@ function calculateWinner(squares) {
   }
   return null;
 }
+
+// =======================================
+
+class Test extends Component{
+  render(){
+    const element = (
+      <div>Hello, World!</div>
+    );
+    return element;
+  }
+}
+
+function Test2() {
+  return <div>Hello world 2</div>;
+}
+
+ReactDOM.render(
+  <Test />,
+  document.getElementById('secondary')
+);
+
+
+ReactDOM.render(
+  <Test2 />,
+  document.getElementById('third')
+);
